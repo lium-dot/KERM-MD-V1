@@ -17,11 +17,11 @@
 --------
 
 <p align="center">
-<a href="https://github.com/Kgtech-cmr/"><img title="Followers" src="https://img.shields.io/github/followers/Kgtech-cmr?color=blue&style=flat-square"></a>
-<a href="https://github.com/Kgtech-cmr/KERM-MD-V4/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Kgtech-cmr/KERM-MD-V1?color=blue&style=flat-square"></a>
-<a href="https://github.com/Kgtech-cmr/KERM-MD-V4/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Kgtech-cmr/KERM-MD-V1?color=blue&style=flat-square"></a>
-<a href="https://github.com/Kgtech-cmr/KERM-MD-V4/"><img title="Size" src="https://img.shields.io/github/repo-size/Kgtech-cmr/KERM-MD-V1?style=flat-square&color=blue"></a>
-<a href="https://github.com/Kgtech-cmr/KERM-MD-V4/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
+<a href="https://github.com/Kgtech-cmr237/"><img title="Followers" src="https://img.shields.io/github/followers/Kgtech-cmr237?color=blue&style=flat-square"></a>
+<a href="https://github.com/Kgtech-cmr237/KERM-MD-V1/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Kgtech-cmr237/KERM-MD-V1?color=blue&style=flat-square"></a>
+<a href="https://github.com/Kgtech-cmr237/KERM-MD-V1/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Kgtech-cmr237/KERM-MD-V1?color=blue&style=flat-square"></a>
+<a href="https://github.com/Kgtech-cmr237/KERM-MD-V1/"><img title="Size" src="https://img.shields.io/github/repo-size/Kgtech-cmr237/KERM-MD-V1?style=flat-square&color=blue"></a>
+<a href="https://github.com/Kgtech-cmr237/KERM-MD-V1/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
 </p>
 <p align='center'>
 </p>
@@ -34,7 +34,7 @@
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
-[![FORK KERM_MD-V4](https://img.shields.io/badge/FORK%20-KERM%20MD%20V1-white)](https://github.com/Kgtech-cmr/KERM-MD-V1/fork)
+[![FORK KERM-MD-V1](https://img.shields.io/badge/FORK%20-KERM%20MD%20V1-white)](https://github.com/Kgtech-cmr237/KERM-MD-V1/fork)
 
 ### <br>    ❖ SESSION_ID ❖
 
@@ -91,7 +91,7 @@
 
 ------------
  
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new-app?template=https://github.com/Kgtech-cmr/KERM-MD-V1)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new-app?template=https://github.com/Kgtech-cmr237/KERM-MD-V1)
 
 ----------
 
@@ -105,7 +105,7 @@
 
 ### <br>    ❖ DEPLOY_REPLIT ❖
 
-`✠ IF U HAVE YOUR REPLIT ACCOUNT SO YOU CAN EASY DEPLOY KERM MD V4 ON REPLIT CLICK BLACK BUTTON [DEPLOY TO REPLIT] AND FIND CONFIG.JSON FILE THEN PASTE YOUR SESSION AND MONGODB KEY THEN RUN CODE AND ENJOY BOT ✠`
+`✠ IF U HAVE YOUR REPLIT ACCOUNT SO YOU CAN EASY DEPLOY KERM MD V1 ON REPLIT CLICK BLACK BUTTON [DEPLOY TO REPLIT] AND FIND CONFIG.JSON FILE THEN PASTE YOUR SESSION AND MONGODB KEY THEN RUN CODE AND ENJOY BOT ✠`
 
 -------------
 
