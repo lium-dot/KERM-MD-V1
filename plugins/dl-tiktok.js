@@ -62,7 +62,7 @@ cmd({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363318387454868@newsletter',
+          newsletterJid: '120363321386877609@newsletter',
           newsletterName: '𝐊𝐄𝐑𝐌 𝐓𝐈𝐊𝐓𝐎𝐊',
           serverMessageId: 143
         }
