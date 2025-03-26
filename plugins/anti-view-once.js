@@ -11,54 +11,66 @@ YT: KermHackTools
 Github: Kgtech-cmr
 */
 
-const axios = require('axios');
 const config = require('../config');
 const { cmd, commands } = require('../command');
+const { proto, downloadContentFromMessage } = require('baileys');
+const { sms,downloadMediaMessage } = require('../lib/msg2');
+const fs = require('fs');
+const exec = require('child_process');
+const path = require('path');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../lib/functions');
 
-const fs = require("fs");
+const prefix = config.PREFIX;
 
 cmd({
     pattern: "vv",
-    react: "💾",
-    alias: ["retrive", "viewonce"],
-    desc: "Fetch and resend a ViewOnce message content (image/video/voice).",
-    category: "misc",
-    use: "<query>",
+    desc: "Get view once.",
+    category: "owner",
+    react: "👀",
     filename: __filename
-}, async (conn, mek, m, { from, reply }) => {
+}, async (conn, mek, m, { isReply, quoted, reply }) => {
     try {
-        if (!m.quoted) return reply("Please reply to a ViewOnce message.");
+        // Check if the message is a view once message
+        if (!m.quoted) return reply("Please reply to a view once message!");
 
-        const mime = m.quoted.type;
-        let ext, mediaType;
-        
-        if (mime === "imageMessage") {
-            ext = "jpg";
-            mediaType = "image";
-        } else if (mime === "videoMessage") {
-            ext = "mp4";
-            mediaType = "video";
-        } else if (mime === "audioMessage") {
-            ext = "mp3";
-            mediaType = "audio";
-        } else {
-            return reply("Unsupported media type. Please reply to an image, video, or audio message.");
+        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
+
+            const mediaMessage = qmessage.imageMessage ||
+                                qmessage.videoMessage ||
+                                qmessage.audioMessage;
+
+            if (!mediaMessage?.viewOnce) {
+              return reply("_Not A VV message")
+            }
+
+            try {
+            const buff = await m.quoted.getbuff
+            const cap = mediaMessage.caption || '';
+
+            if (mediaMessage.mimetype.startsWith('image')) {
+                  await conn.sendMessage(m.chat, {
+                  image: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('video')) {
+              await conn.sendMessage(m.chat, {
+                  video: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('audio')) {
+              await conn.sendMessage(m.chat, {
+                  audio: buff,
+                  ptt: mediaMessage.ptt || false
+         }); 
+            } else {
+              return reply("_*Unkown/Unsupported media*_");
         }
-
-        var buffer = await m.quoted.download();
-        var filePath = `${Date.now()}.${ext}`;
-
-        fs.writeFileSync(filePath, buffer); 
-
-        let mediaObj = {};
-        mediaObj[mediaType] = fs.readFileSync(filePath);
-
-        await conn.sendMessage(m.chat, mediaObj);
-
-        fs.unlinkSync(filePath);
-
-    } catch (e) {
-        console.log("Error:", e);
-        reply("An error occurred while fetching the ViewOnce message.", e);
+    } catch (error) {
+        console.error(error);
+        reply(`${error}`)
     }
+} catch (e) {
+  console.error(e);
+        reply(`${e}`);
+}
 });
