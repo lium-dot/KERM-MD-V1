@@ -61,7 +61,7 @@ cmd({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363318387454868@newsletter',
+          newsletterJid: '120363321386877609@newsletter',
           newsletterName: '『 𝐊𝐄𝐑𝐌 𝐅𝐁 』',
           serverMessageId: 143
         }
