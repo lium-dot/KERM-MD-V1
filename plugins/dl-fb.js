@@ -1,49 +1,80 @@
-const { cmd } = require('../command');
-const axios = require('axios');
+const axios = require("axios");
+const { cmd } = require("../command");
 
 cmd({
-  pattern: "fb",
-  alias: ["facebook", "fbdl"],
-  desc: "Download Facebook videos",
+  pattern: "fbdl",
+  alias: ["facebook", "fb"],
+  react: '⏰',
+  desc: "Download videos from Facebook.",
   category: "download",
+  use: ".fbdl <Facebook video URL>",
   filename: __filename
-}, async (conn, m, store, { from, q, reply }) => {
+}, async (conn, mek, m, { from, reply, args }) => {
   try {
-    if (!q || !q.startsWith("https://")) {
-      return reply("*`Need a valid Facebook URL!`*");
+    // Check if the user provided a Facebook video URL
+    const fbUrl = args[0];
+    if (!fbUrl || !fbUrl.includes("facebook.com")) {
+      return reply('*𝐏ℓєαʂє 𝐏ɼ๏νιɖє 𝐀 fb҇ 𝐕ιɖє๏ ๏ɼ ɼєєℓ 𝐔ɼℓ..*');
     }
 
+    // Add a reaction to indicate processing
     await conn.sendMessage(from, { react: { text: '⏳', key: m.key } });
 
-    const apiUrl = `https://lance-frank-asta.onrender.com/api/downloader?url=${encodeURIComponent(q)}`;
-    const { data } = await axios.get(apiUrl);
+    // Prepare the API URL
+    const apiUrl = `https://apis.davidcyriltech.my.id/facebook2?url=${encodeURIComponent(fbUrl)}`;
 
-    if (!data?.content?.status || !data?.content?.data?.result?.length) {
-      throw new Error("Invalid API response or no video found.");
+    // Call the API using GET
+    const response = await axios.get(apiUrl);
+
+    // Check if the API response is valid
+    if (!response.data || !response.data.status || !response.data.video) {
+      return reply('❌ Unable to fetch the video. Please check the URL and try again.');
     }
 
-    let videoData = data.content.data.result.find(v => v.quality === "HD") || 
-                    data.content.data.result.find(v => v.quality === "SD");
+    // Extract the video details
+    const { title, thumbnail, downloads } = response.data.video;
 
-    if (!videoData) {
-      throw new Error("No valid video URL found.");
+    // Get the highest quality download link (HD or SD)
+    const downloadLink = downloads.find(d => d.quality === "HD")?.downloadUrl || downloads[0].downloadUrl;
+
+    // Inform the user that the video is being downloaded
+   // await reply('```Downloading video... Please wait.📥```');
+
+    // Download the video
+    const videoResponse = await axios.get(downloadLink, { responseType: 'arraybuffer' });
+    if (!videoResponse.data) {
+      return reply('❌ Failed to download the video. Please try again later.');
     }
 
+    // Prepare the video buffer
+    const videoBuffer = Buffer.from(videoResponse.data, 'binary');
+
+    // Send the video with details
     await conn.sendMessage(from, {
-      video: { url: videoData.url },
-      caption: `📥 *Downloaded in ${videoData.quality} Quality*\n\n🔗 *Powered By Kerm-md*`
-    }, { quoted: m });
+      video: videoBuffer,
+      caption: `*🫟𝐊𝐄𝐑𝐌 𝐌𝐃 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐃*\n\n` +
+        `🔖 *TITLE*: ${title}\n` +
+        `📏 *QUALITY*: ${downloads.find(d => d.quality === "HD") ? "HD" : "SD"}\n\n` +
+        `> *© powered ʙʏ Kerm*`,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        forwardingScore: 999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: '120363318387454868@newsletter',
+          newsletterName: '『 𝐊𝐄𝐑𝐌 𝐅𝐁 』',
+          serverMessageId: 143
+        }
+      }
+    }, { quoted: mek });
 
+    // Add a reaction to indicate success
+    await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
   } catch (error) {
-    console.error("FB Download Error:", error);
+    console.error('Error downloading video:', error);
+    reply('❌ Unable to download the video. Please try again later.');
 
-    // Send error details to bot owner
-    const ownerNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
-    await conn.sendMessage(ownerNumber, {
-      text: `⚠️ *FB Downloader Error!*\n\n📍 *Group/User:* ${from}\n💬 *Query:* ${q}\n❌ *Error:* ${error.message || error}`
-    });
-
-    // Notify the user
-    reply("❌ *Error:* Unable to process the request. Please try again later.");
+    // Add a reaction to indicate failure
+    await conn.sendMessage(from, { react: { text: '❌', key: m.key } });
   }
 });
